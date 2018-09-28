@@ -20,6 +20,7 @@
 */
 
 #include "ESP32BootROM.h"
+#include "WiFiNINA.h"
 
 typedef struct __attribute__((__packed__)) {
   uint8_t command;
@@ -37,6 +38,7 @@ static const int MAX_PAYLOAD_SIZE = 1024;
 #define CMD_ERASE_FLASH       0x03
 #define CMD_MD5_FLASH         0x04
 #define CMD_MAX_PAYLOAD_SIZE  0x50
+#define CMD_CERTIFICATE       0x55
 #define CMD_HELLO             0x99
 
 void setup() {
@@ -81,6 +83,11 @@ void receivePacket(UartPacket *pkt, uint8_t *payload) {
 static UartPacket pkt;
 static uint8_t payload[MAX_PAYLOAD_SIZE];
 
+struct certificate {
+  uint8_t filename[20];
+  uint8_t payload[MAX_PAYLOAD_SIZE - 20];
+};
+
 void loop() {
   receivePacket(&pkt, payload);
 
@@ -116,6 +123,48 @@ void loop() {
     } else {
       Serial.print("OK");
     }
+  }
+
+#define APPEND 0
+#define CREATE 1
+#define DELETE 2
+#define LIST   3
+
+  if (pkt.command == CMD_CERTIFICATE) {
+    int action = pkt.arg1;
+    int extra = pkt.address;
+
+    struct certificate *crt = (struct certificate *)payload;
+    ESP32BootROM.end();
+
+    if (WiFi.status() == WL_NO_SHIELD) {
+      Serial.print("ER");
+      return;
+    }
+
+    WiFiStorageFile file = WiFiStorage.open("/fs/certs/" + String((char*)crt->filename));
+
+    if (action == APPEND) {
+      if (!file) {
+        Serial.print("ER");
+      }
+      file.seek(file.size());
+      file.write(crt->payload, pkt.payloadLength - 20);
+    }
+    if (action == CREATE) {
+      if (file) {
+        file.erase();
+        file.seek(0);
+      }
+      file.write(crt->payload, pkt.payloadLength - 20);
+    }
+    if (action == DELETE) {
+      file.erase();
+    }
+    if (action == LIST) {
+      // not yet implemented
+    }
+    Serial.print("OK");
   }
 
   if (pkt.command == CMD_MD5_FLASH) {
