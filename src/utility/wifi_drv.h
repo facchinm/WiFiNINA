@@ -280,6 +280,7 @@ public:
 
     static void debug(uint8_t on);
     static float getTemperature();
+    static void getStats(uint8_t udp);
     static void pinMode(uint8_t pin, uint8_t mode);
     static void digitalWrite(uint8_t pin, uint8_t value);
     static void analogWrite(uint8_t pin, uint8_t value);

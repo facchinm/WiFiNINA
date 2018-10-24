@@ -975,6 +975,35 @@ float WiFiDrv::getTemperature()
     return _data;
 }
 
+void WiFiDrv::getStats(uint8_t udp)
+{
+    WAIT_FOR_SLAVE_SELECT();
+    // Send Command
+    SpiDrv::sendCmd(GET_STATS_CMD, PARAM_NUMS_1);
+    SpiDrv::sendParam(&udp, 1, LAST_PARAM);
+    SpiDrv::readChar();
+    SpiDrv::readChar();
+
+
+    SpiDrv::spiSlaveDeselect();
+    //Wait the reply elaboration
+    SpiDrv::waitForSlaveReady();
+    SpiDrv::spiSlaveSelect();
+
+    // Wait for reply
+    uint8_t _dataLen = 0;
+    char _data[256];
+    if (!SpiDrv::waitResponseCmd(GET_STATS_CMD, PARAM_NUMS_1, (uint8_t*)&_data, &_dataLen))
+    {
+        WARN("error waitResponse");
+    }
+    SpiDrv::spiSlaveDeselect();
+    _data[_dataLen-1]='\n';
+    _data[_dataLen]='\0';
+    Serial.println(_data);
+    return;
+}
+
 void WiFiDrv::pinMode(uint8_t pin, uint8_t mode)
 {
     WAIT_FOR_SLAVE_SELECT();
