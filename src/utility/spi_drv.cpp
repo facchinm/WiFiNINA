@@ -125,7 +125,11 @@ void SpiDrv::end() {
 
 void SpiDrv::spiSlaveSelect()
 {
+#ifdef ARDUINO_SAMD_MKRVIDOR4000
+    SPIWIFI.beginTransaction(SPISettings(10000000, MSBFIRST, SPI_MODE0));
+#else
     SPIWIFI.beginTransaction(SPISettings(8000000, MSBFIRST, SPI_MODE0));
+#endif
     digitalWrite(SLAVESELECT,LOW);
 
     // wait for up to 5 ms for the NINA to indicate it is not ready for transfer
