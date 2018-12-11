@@ -304,6 +304,8 @@ public:
         return length >= 0;
     };
 
+    static void applyOTA();
+
     friend class WiFiUDP;
     friend class WiFiClient;
 };
