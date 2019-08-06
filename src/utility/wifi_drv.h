@@ -308,6 +308,11 @@ public:
 
     static void applyOTA();
 
+    static void wpa2EntSetIdentity(const char* identity);
+    static void wpa2EntSetUsername(const char* username);
+    static void wpa2EntSetPassword(const char* password);
+    static void wpa2EntEnable();
+
     friend class WiFiUDP;
     friend class WiFiClient;
 };
