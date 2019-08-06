@@ -161,6 +161,27 @@ uint8_t WiFiClass::beginProvision()
 	return WiFiDrv::beginProvision();
 }
 
+void WiFiClass::config(WPA2Enterprise& data)
+{
+	WiFiDrv::wpa2EntSetIdentity(data.identity.c_str());
+	WiFiDrv::wpa2EntSetUsername(data.username.c_str());
+	WiFiDrv::wpa2EntSetPassword(data.password.c_str());
+
+	if (data.ca_pem) {
+		WiFiStorage.remove("/fs/ca.pem");
+		WiFiStorage.write("/fs/ca.pem", 0, (uint8_t*)data.ca_pem, strlen(data.ca_pem));
+	}
+	if (data.client_crt) {
+		WiFiStorage.remove("/fs/client.crt");
+		WiFiStorage.write("/fs/client.crt", 0, (uint8_t*)data.client_crt, strlen(data.client_crt));
+	}
+	if (data.client_key) {
+		WiFiStorage.remove("/fs/client.key");
+		WiFiStorage.write("/fs/client.key", 0, (uint8_t*)data.client_key, strlen(data.client_key));
+	}
+	WiFiDrv::wpa2EntEnable();
+}
+
 void WiFiClass::config(IPAddress local_ip)
 {
 	WiFiDrv::config(1, (uint32_t)local_ip, 0, 0);

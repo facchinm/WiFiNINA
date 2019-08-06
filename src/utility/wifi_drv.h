@@ -312,6 +312,11 @@ public:
     static uint8_t beginProvision(uint8_t channel);
     static uint32_t provisioned();
 
+    static void wpa2EntSetIdentity(const char* identity);
+    static void wpa2EntSetUsername(const char* username);
+    static void wpa2EntSetPassword(const char* password);
+    static void wpa2EntEnable();
+
     friend class WiFiUDP;
     friend class WiFiClient;
 };
