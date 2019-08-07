@@ -156,6 +156,11 @@ uint8_t WiFiClass::beginAP(const char *ssid, const char* passphrase, uint8_t cha
     return status;
 }
 
+uint8_t WiFiClass::beginProvision()
+{
+	return WiFiDrv::beginProvision();
+}
+
 void WiFiClass::config(WPA2Enterprise& data)
 {
 	WiFiDrv::wpa2EntSetIdentity(data.identity.c_str());

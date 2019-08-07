@@ -313,6 +313,10 @@ public:
     static void wpa2EntSetPassword(const char* password);
     static void wpa2EntEnable();
 
+    static uint8_t beginProvision();
+    static uint8_t beginProvision(uint8_t channel);
+    static uint32_t provisioned();
+
     friend class WiFiUDP;
     friend class WiFiClient;
 };

@@ -114,6 +114,14 @@ public:
     uint8_t beginAP(const char *ssid, const char* passphrase);
     uint8_t beginAP(const char *ssid, const char* passphrase, uint8_t channel);
 
+    /* Start Wifi connection using provisioner
+     * If the previously configured network can't be found,
+     * an Access point will be turned on, serving a configuration landing page
+     */
+
+    uint8_t beginProvision();
+    uint8_t beginProvision(uint8_t channel);
+
     /* Add WPA2 Enterprise information for next connection
         *
         * param data:   Static ip configuration
