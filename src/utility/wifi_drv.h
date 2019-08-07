@@ -308,6 +308,10 @@ public:
 
     static void applyOTA();
 
+    static uint8_t beginProvision();
+    static uint8_t beginProvision(uint8_t channel);
+    static uint32_t provisioned();
+
     friend class WiFiUDP;
     friend class WiFiClient;
 };
