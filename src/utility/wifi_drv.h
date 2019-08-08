@@ -317,6 +317,8 @@ public:
     static uint8_t beginProvision(uint8_t channel);
     static uint32_t provisioned();
 
+    static void setTimeout(unsigned long timeout);
+
     friend class WiFiUDP;
     friend class WiFiClient;
 };

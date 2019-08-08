@@ -1291,4 +1291,25 @@ uint8_t WiFiDrv::beginProvision()
     return 1;
 }
 
+void WiFiDrv::setTimeout(unsigned long timeout)
+{
+    WAIT_FOR_SLAVE_SELECT();
+
+    // Send Command
+    SpiDrv::sendCmd(SET_TIMEOUT_CMD, PARAM_NUMS_1);
+    SpiDrv::sendParam((uint8_t*)&timeout, sizeof(timeout), LAST_PARAM);
+
+    SpiDrv::spiSlaveDeselect();
+    //Wait the reply elaboration
+    SpiDrv::waitForSlaveReady();
+    SpiDrv::spiSlaveSelect();
+
+    // Wait for reply
+    uint8_t _data = 1;
+    uint8_t _dataLen = 0;
+    SpiDrv::waitResponseCmd(SET_TIMEOUT_CMD, PARAM_NUMS_1, &_data, &_dataLen);
+
+    SpiDrv::spiSlaveDeselect();
+}
+
 WiFiDrv wiFiDrv;
