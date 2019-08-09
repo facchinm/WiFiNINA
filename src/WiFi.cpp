@@ -375,6 +375,7 @@ int WiFiClass::ping(IPAddress host, uint8_t ttl)
 
 void WiFiClass::setTimeout(unsigned long timeout)
 {
+	WiFiDrv::setTimeout(timeout);
 	_timeout = timeout;
 }
 WiFiClass WiFi;

@@ -317,6 +317,8 @@ public:
     static void wpa2EntSetPassword(const char* password);
     static void wpa2EntEnable();
 
+    static void setTimeout(unsigned long timeout);
+
     friend class WiFiUDP;
     friend class WiFiClient;
 };
