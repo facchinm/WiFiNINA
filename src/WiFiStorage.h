@@ -22,6 +22,8 @@
 
 #include "utility/wifi_drv.h"
 
+#define MAX_SINGLE_WRITE_CHUNK		4000
+
 class WiFiStorageFile;
 
 class WiFiStorageClass
@@ -48,6 +50,13 @@ public:
 		return true;
 	}
 	static bool write(const char *filename, uint32_t offset, uint8_t* buffer, uint32_t buffer_len) {
+		while (buffer_len > MAX_SINGLE_WRITE_CHUNK) {
+			// write chunks until remaining <  MAX_SINGLE_WRITE_CHUNK
+			WiFiDrv::writeFile(filename, strlen(filename), offset, buffer, MAX_SINGLE_WRITE_CHUNK);
+			offset += MAX_SINGLE_WRITE_CHUNK;
+			buffer_len -= MAX_SINGLE_WRITE_CHUNK;
+			buffer += MAX_SINGLE_WRITE_CHUNK;
+		}
 		WiFiDrv::writeFile(filename, strlen(filename), offset, buffer, buffer_len);
 		return true;
 	}
