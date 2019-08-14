@@ -449,7 +449,7 @@ int SpiDrv::waitResponse(uint8_t cmd, uint8_t* numParamRead, uint8_t** params, u
     return 1;
 }
 
-void SpiDrv::sendParamNoLen(uint8_t* param, size_t param_len, uint8_t lastParam)
+void SpiDrv::sendParamNoLen(uint8_t* param, uint32_t param_len, uint8_t lastParam)
 {
     int i = 0;
     // Send Spi paramLen
