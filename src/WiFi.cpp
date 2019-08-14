@@ -48,6 +48,10 @@ void WPA2EnterpriseClass::setPassword(const char* password) {
 	WiFiDrv::wpa2EntSetPassword(password);
 }
 
+void WPA2EnterpriseClass::begin() {
+	WiFiDrv::wpa2EntEnable();
+}
+
 // singleton
 WPA2EnterpriseClass WPA2Enterprise;
 

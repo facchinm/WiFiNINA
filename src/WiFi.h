@@ -45,13 +45,14 @@ typedef enum _eap_methods {
 class WPA2EnterpriseClass
 {
 public:
-    void clear();
-    void save();
+    void clear(); // TODO: not implemented
+    void save();  // TODO: not implemented
     void setCACertificate(const char* ca_pem);
     void setClientCertificate(const char* client_crt, const char* client_key);
     void setIdentity(const char* identity);
     void setUsername(const char* username);
     void setPassword(const char* password);
+    void begin();
 };
 
 extern WPA2EnterpriseClass WPA2Enterprise;
