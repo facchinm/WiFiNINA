@@ -47,8 +47,11 @@ class WPA2EnterpriseClass
 public:
     void clear();
     void save();
-    void addCACertificate(const char* ca_pem);
-    void addClientCertificate(const char* client_crt, const char* client_key);
+    void setCACertificate(const char* ca_pem);
+    void setClientCertificate(const char* client_crt, const char* client_key);
+    void setIdentity(const char* identity);
+    void setUsername(const char* username);
+    void setPassword(const char* password);
 };
 
 extern WPA2EnterpriseClass WPA2Enterprise;

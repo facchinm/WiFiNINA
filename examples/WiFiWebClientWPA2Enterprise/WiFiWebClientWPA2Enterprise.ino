@@ -45,7 +45,7 @@ WiFiClient client;
 //
 // In case of more complicated networks (that require a certificate, for example) you can use
 // WPA2Enterprise functions
-// WPA2Enterprise.addCACertificate() , addClientCertificate(), addIdentity() ...
+// WPA2Enterprise.setCACertificate() , setClientCertificate(), setIdentity() ...
 // and then call WiFi.begin() as usual.
 
 void setup() {
@@ -57,8 +57,8 @@ void setup() {
 
   // Configure the wifi module to use provided WPA2 Enterprise parameters (if needed)
   Serial.println("Configuring WPA2 Enterprise credentials");
-  WPA2Enterprise.addCACertificate(ca_pem);
-  WPA2Enterprise.addClientCertificate(client_crt, client_key);
+  WPA2Enterprise.setCACertificate(ca_pem);
+  WPA2Enterprise.setClientCertificate(client_crt, client_key);
 
   // Check for the WiFi module:
   if (WiFi.status() == WL_NO_MODULE) {

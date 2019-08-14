@@ -27,13 +27,25 @@ extern "C" {
   #include "utility/debug.h"
 }
 
-void WPA2EnterpriseClass::addCACertificate(const char* ca_pem) {
+void WPA2EnterpriseClass::setCACertificate(const char* ca_pem) {
 	WiFiDrv::wpa2EntSetCACertificate(ca_pem);
 }
 
-void WPA2EnterpriseClass::addClientCertificate(const char* client_crt, const char* client_key) {
+void WPA2EnterpriseClass::setClientCertificate(const char* client_crt, const char* client_key) {
 	// TODO: make sure that client_crt is not bigger tahn 4050bytes
 	WiFiDrv::wpa2EntSetClientCertificate(client_crt, client_key);
+}
+
+void WPA2EnterpriseClass::setIdentity(const char* identity) {
+	WiFiDrv::wpa2EntSetIdentity(identity);
+}
+
+void WPA2EnterpriseClass::setUsername(const char* username) {
+	WiFiDrv::wpa2EntSetUsername(username);
+}
+
+void WPA2EnterpriseClass::setPassword(const char* password) {
+	WiFiDrv::wpa2EntSetPassword(password);
 }
 
 // singleton
