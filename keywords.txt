@@ -13,7 +13,9 @@ WiFiClient	KEYWORD1
 WiFiSSLClient	KEYWORD1
 WiFiServer	KEYWORD1
 WiFiUDP	KEYWORD1
-
+WPA2Enterprise	KEYWORD1
+WifiStorage	KEYWORD1
+WiFiStorageFile	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -47,6 +49,8 @@ parsePacket	KEYWORD2
 remoteIP	KEYWORD2
 remotePort	KEYWORD2
 
+beginProvision	KEYWORD2
+
 beginAP	KEYWORD2
 setHostname	KEYWORD2
 end	KEYWORD2
@@ -57,6 +61,12 @@ ping	KEYWORD2
 beginMulticast	KEYWORD2
 setTimeout	KEYWORD2
 
+beginEnterprise	KEYWORD2
+setCACertificate	KEYWORD2
+setClientCertificate	KEYWORD2
+setIdentity	KEYWORD2
+setUsername	KEYWORD2
+setPassword	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
