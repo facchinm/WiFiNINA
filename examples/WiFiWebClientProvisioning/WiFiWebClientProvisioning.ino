@@ -49,6 +49,13 @@ void setup() {
     Serial.println("Please upgrade the firmware");
   }
 
+  byte mac[6];
+  WiFi.macAddress(mac);
+
+  String submac = String(mac[0] + 1, HEX) + String(mac[1], HEX) + String(mac[2], HEX);
+  submac.toUpperCase();
+  String APname = "WiFiNINA-" + submac;
+
   WiFi.beginProvision();
   long start = millis();
   bool displayHelpMessage = true;
@@ -56,8 +63,9 @@ void setup() {
   while (WiFi.status() != WL_CONNECTED) {
     if (millis() - start > 10000 && displayHelpMessage) {
       Serial.println("Your board could be unprovisioned");
-      Serial.println("If so, connect to WiFiNINA network with your PC or smartphone");
-      Serial.println("If the browser doesn't redirect you, visit http://10.10.0.1");
+      Serial.println("If so, connect to " + APname + " network with your PC or smartphone");
+      Serial.println("If the browser doesn't redirect you, visit http://10.10.0.1 or http://wifinina.local");
+      Serial.println("Required password is \"password\"");
       // Just display the help message once
       displayHelpMessage = false;
     }
