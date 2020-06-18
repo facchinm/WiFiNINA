@@ -293,6 +293,8 @@ public:
     static void digitalWrite(uint8_t pin, uint8_t value);
     static void analogWrite(uint8_t pin, uint8_t value);
 
+    static void enableBLECoexistence();
+
     friend class WiFiUDP;
     friend class WiFiClient;
 };

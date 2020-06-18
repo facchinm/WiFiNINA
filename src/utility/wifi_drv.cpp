@@ -1011,6 +1011,33 @@ void WiFiDrv::debug(uint8_t on)
     SpiDrv::spiSlaveDeselect(); 
 }
 
+void WiFiDrv::enableBLECoexistence()
+{
+    WAIT_FOR_SLAVE_SELECT();
+
+    // Send Command
+    SpiDrv::sendCmd(SET_BLE_COEXISTENCE, PARAM_NUMS_1);
+
+    uint8_t on = 0xBB;
+    SpiDrv::sendParam(&on, 1, LAST_PARAM);
+
+    // pad to multiple of 4
+    SpiDrv::readChar();
+    SpiDrv::readChar();
+
+    SpiDrv::spiSlaveDeselect();
+    //Wait the reply elaboration
+    SpiDrv::waitForSlaveReady();
+    SpiDrv::spiSlaveSelect();
+
+    // Wait for reply
+    uint8_t dataLen = 0;
+    uint8_t data = 0;
+    SpiDrv::waitResponseCmd(SET_BLE_COEXISTENCE, PARAM_NUMS_1, &data, &dataLen);
+
+    SpiDrv::spiSlaveDeselect();
+}
+
 float WiFiDrv::getTemperature()
 {
     WAIT_FOR_SLAVE_SELECT();

@@ -102,6 +102,7 @@ enum {
     SET_PIN_MODE		= 0x50,
     SET_DIGITAL_WRITE	= 0x51,
     SET_ANALOG_WRITE	= 0x52,
+    SET_BLE_COEXISTENCE	= 0x53,
 };
 
 
