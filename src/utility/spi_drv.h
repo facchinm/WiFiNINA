@@ -44,6 +44,7 @@ private:
 	//static bool waitSlaveReady();
 	static void waitForSlaveSign();
 	static void getParam(uint8_t* param);
+	static voidFuncPtr waitForSlaveReadyCallback;
 public:
     static bool initialized;
 
@@ -102,6 +103,10 @@ public:
     static void sendCmd(uint8_t cmd, uint8_t numParam);
 
     static int available();
+
+    static void setBusyWaitCallback(voidFuncPtr cb) {
+      waitForSlaveReadyCallback = cb;
+    }
 };                                                                 
 
 extern SpiDrv spiDrv;

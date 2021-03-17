@@ -317,6 +317,8 @@ public:
 
     static void applyOTA();
 
+    static void setBusyWaitCallback(voidFuncPtr cb);
+
     friend class WiFiUDP;
     friend class WiFiClient;
 };

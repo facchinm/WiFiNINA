@@ -63,6 +63,8 @@ static bool inverted_reset = false;
 
 bool SpiDrv::initialized = false;
 
+voidFuncPtr SpiDrv::waitForSlaveReadyCallback = NULL;
+
 void SpiDrv::begin()
 {
 #ifdef ARDUINO_SAMD_MKRVIDOR4000
@@ -209,7 +211,11 @@ void SpiDrv::waitForSlaveSign()
 
 void SpiDrv::waitForSlaveReady()
 {
-	while (!waitSlaveReady());
+	while (!waitSlaveReady()) {
+    }
+    if (waitForSlaveReadyCallback) {
+        waitForSlaveReadyCallback();
+    }
 }
 
 void SpiDrv::getParam(uint8_t* param)

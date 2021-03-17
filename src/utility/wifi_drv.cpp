@@ -1258,5 +1258,8 @@ void WiFiDrv::applyOTA() {
     // don't wait for return; OTA operation should be fire and forget :)
 }
 
+void WiFiDrv::setBusyWaitCallback(voidFuncPtr cb) {
+    SpiDrv::setBusyWaitCallback(cb);
+}
 
 WiFiDrv wiFiDrv;
